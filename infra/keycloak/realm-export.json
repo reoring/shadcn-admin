@@ -1,0 +1,51 @@
+{
+  "realm": "shadcn-admin",
+  "enabled": true,
+  "registrationAllowed": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "sslRequired": "external",
+  "roles": {
+    "realm": [
+      {
+        "name": "admin",
+        "description": "Administrator role",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "name": "user",
+        "description": "Default user role",
+        "composite": false,
+        "clientRole": false
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "shadcn-admin-web",
+      "name": "Shadcn Admin Web",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        "http://localhost:5173/api/auth/callback/keycloak"
+      ],
+      "webOrigins": [
+        "http://localhost:5173"
+      ],
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "attributes": {
+        "post.logout.redirect.uris": "http://localhost:5173/*"
+      }
+    }
+  ]
+}

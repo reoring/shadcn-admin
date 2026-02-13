@@ -11,7 +11,10 @@
     "preview": "vite preview",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "knip": "knip"
+    "knip": "knip",
+    "auth:dev": "cd auth-service && bun run dev",
+    "infra:up": "docker compose up -d",
+    "infra:reset": "docker compose down -v && docker compose up -d"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.60.0",

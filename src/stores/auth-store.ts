@@ -1,53 +1,31 @@
 import { create } from 'zustand'
-import { getCookie, setCookie, removeCookie } from '@/lib/cookies'
-
-const ACCESS_TOKEN = 'thisisjustarandomstring'
-
-interface AuthUser {
-  accountNo: string
-  email: string
-  role: string[]
-  exp: number
-}
+import { type AuthSession, getSession } from '@/lib/auth-client'
 
 interface AuthState {
   auth: {
-    user: AuthUser | null
-    setUser: (user: AuthUser | null) => void
-    accessToken: string
-    setAccessToken: (accessToken: string) => void
-    resetAccessToken: () => void
+    session: AuthSession | null
+    isLoading: boolean
+    fetchSession: () => Promise<void>
     reset: () => void
   }
 }
 
-export const useAuthStore = create<AuthState>()((set) => {
-  const cookieState = getCookie(ACCESS_TOKEN)
-  const initToken = cookieState ? JSON.parse(cookieState) : ''
-  return {
-    auth: {
-      user: null,
-      setUser: (user) =>
-        set((state) => ({ ...state, auth: { ...state.auth, user } })),
-      accessToken: initToken,
-      setAccessToken: (accessToken) =>
-        set((state) => {
-          setCookie(ACCESS_TOKEN, JSON.stringify(accessToken))
-          return { ...state, auth: { ...state.auth, accessToken } }
-        }),
-      resetAccessToken: () =>
-        set((state) => {
-          removeCookie(ACCESS_TOKEN)
-          return { ...state, auth: { ...state.auth, accessToken: '' } }
-        }),
-      reset: () =>
-        set((state) => {
-          removeCookie(ACCESS_TOKEN)
-          return {
-            ...state,
-            auth: { ...state.auth, user: null, accessToken: '' },
-          }
-        }),
+export const useAuthStore = create<AuthState>()((set) => ({
+  auth: {
+    session: null,
+    isLoading: true,
+    fetchSession: async () => {
+      set((state) => ({
+        auth: { ...state.auth, isLoading: true },
+      }))
+      const session = await getSession()
+      set((state) => ({
+        auth: { ...state.auth, session, isLoading: false },
+      }))
     },
-  }
-})
+    reset: () =>
+      set((state) => ({
+        auth: { ...state.auth, session: null, isLoading: false },
+      })),
+  },
+}))

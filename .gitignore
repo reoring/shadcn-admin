@@ -27,3 +27,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Auth service
+auth-service/node_modules
+auth-service/dist
+auth-service/.env
