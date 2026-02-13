@@ -55,5 +55,14 @@ export default defineConfig(
       // Prevent duplicate imports from the same module
       'no-duplicate-imports': 'error',
     },
+  },
+  {
+    files: ['auth-service/**/*.{ts,tsx}', 'scripts/**/*.{ts,tsx}'],
+    languageOptions: {
+      globals: globals.node,
+    },
+    rules: {
+      'no-console': 'off',
+    },
   }
 )

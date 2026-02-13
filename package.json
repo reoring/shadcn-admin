@@ -14,7 +14,9 @@
     "knip": "knip",
     "auth:dev": "cd auth-service && bun run dev",
     "infra:up": "docker compose up -d",
-    "infra:reset": "docker compose down -v && docker compose up -d"
+    "infra:reset": "docker compose down -v && docker compose up -d",
+    "gensecret": "bun scripts/gensecret.ts",
+    "auth:init": "bun scripts/auth-init.ts"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.60.0",

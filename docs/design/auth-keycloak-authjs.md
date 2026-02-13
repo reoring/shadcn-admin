@@ -138,7 +138,7 @@ The realm export should define:
   - `http://localhost:5173/api/auth/callback/keycloak`
 - Web origins:
   - `http://localhost:5173`
-- Users (optional dev-only): a test user
+- Users: do not commit default users/passwords to the repo (create users via Keycloak registration or admin UI)
 - Realm roles (optional): `admin`, `user`
 
 ### Client settings (recommended)

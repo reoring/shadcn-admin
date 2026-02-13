@@ -72,7 +72,7 @@ If you want to update components using the Shadcn CLI (e.g., `npx shadcn@latest 
 
 **Icons:** [Lucide Icons](https://lucide.dev/icons/), [Tabler Icons](https://tabler.io/icons) (Brand icons only)
 
-**Auth (partial):** [Clerk](https://go.clerk.com/GttUAaK)
+**Auth:** Keycloak + Auth.js (dev BFF)
 
 ## Run Locally
 
@@ -99,6 +99,89 @@ Start the server
 
 ```bash
   devbox run -- bun run dev
+```
+
+## Keycloak Auth (Local Dev)
+
+This repo includes a small Auth.js + Express "auth service" and a local Keycloak via Docker.
+
+### 1) Start Keycloak
+
+```bash
+bun run infra:up
+```
+
+- Keycloak Admin UI: `http://localhost:8080/admin`
+- Admin credentials (dev): `admin` / `admin`
+
+### 2) Generate auth-service env
+
+This generates `auth-service/.env` (not a root `.env`). It will:
+
+- generate `AUTH_SECRET` (Auth.js signing secret) if missing (or still a placeholder)
+- if `KEYCLOAK_CLIENT_SECRET` is missing (or still a placeholder), try to fetch it from the running Keycloak via the Admin API
+
+```bash
+bun run gensecret
+```
+
+If you changed Keycloak admin credentials:
+
+```bash
+KEYCLOAK_ADMIN_USERNAME=... KEYCLOAK_ADMIN_PASSWORD=... bun run gensecret
+```
+
+To force-regenerate only `AUTH_SECRET`:
+
+```bash
+bun run gensecret -- --force
+```
+
+To re-sync `KEYCLOAK_CLIENT_SECRET` from Keycloak (useful after `infra:reset`):
+
+```bash
+bun run gensecret -- --sync-keycloak-secret
+```
+
+### 3) Start auth service + SPA
+
+In separate terminals:
+
+```bash
+bun run auth:dev
+```
+
+```bash
+bun run dev
+```
+
+### 4) Create a user for login
+
+We do not ship a default `testuser` / `testpassword` in the realm export.
+
+Pick one:
+
+- Use Keycloak registration (recommended): open the app, click Sign in, then use the "Register" link on the Keycloak login screen.
+- Or create a user in Keycloak Admin UI: Users -> Add user -> Credentials -> Set password.
+
+### One-shot init (Keycloak + env + test user)
+
+If you want a single command that makes `testuser` / `testpassword` usable, run:
+
+```bash
+bun run auth:init
+```
+
+This will:
+
+- start Keycloak via Docker
+- generate/update `auth-service/.env`
+- create (or update) a Keycloak user (defaults to `testuser` / `testpassword`)
+
+To wipe and re-create Keycloak data:
+
+```bash
+bun run auth:init -- --reset
 ```
 
 ## Sponsoring this project ❤️
