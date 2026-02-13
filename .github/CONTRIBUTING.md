@@ -25,13 +25,14 @@ Thank you for considering contributing to **shadcn-admin**! Every contribution i
 3. **Install dependencies:**
 
    ```bash
-   pnpm install
+    devbox install
+    devbox run -- bun install
    ```
 
 4. **Run the project locally:**
 
    ```bash
-   pnpm dev
+    devbox run -- bun run dev
    ```
 
 5. Create a new branch for your contribution:
@@ -61,7 +62,7 @@ Thank you for considering contributing to **shadcn-admin**! Every contribution i
 > **Tips!** Before submitting your changes, run the following commands:
 
 ```bash
-pnpm lint && pnpm format && pnpm knip && pnpm build
+devbox run -- bun run lint && devbox run -- bun run format && devbox run -- bun run knip && devbox run -- bun run build
 ```
 
 ---

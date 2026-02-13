@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Devbox
+.devbox/
+
 .env
 
 # Editor directories and files

@@ -20,22 +20,24 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.19.0
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.3.8
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Lint the code
-        run: pnpm lint
+        run: bun run lint
 
       # - name: Analyze unused files and dependencies
-      #   run: pnpm knip
+      #   run: bun run knip
 
       - name: Run Prettier check
-        run: pnpm format:check
+        run: bun run format:check
 
       - name: Build the project
-        run: pnpm build
+        run: bun run build

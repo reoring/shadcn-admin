@@ -399,7 +399,7 @@ function SidebarGroupLabel({
   className,
   asChild = false,
   ...props
-}: React.ComponentProps<'div'> & { asChild?: boolean }) {
+}: React.ComponentPropsWithoutRef<'div'> & { asChild?: boolean }) {
   const Comp = asChild ? Slot : 'div'
 
   return (
@@ -420,7 +420,7 @@ function SidebarGroupAction({
   className,
   asChild = false,
   ...props
-}: React.ComponentProps<'button'> & { asChild?: boolean }) {
+}: React.ComponentPropsWithoutRef<'button'> & { asChild?: boolean }) {
   const Comp = asChild ? Slot : 'button'
 
   return (
@@ -505,7 +505,7 @@ function SidebarMenuButton({
   tooltip,
   className,
   ...props
-}: React.ComponentProps<'button'> & {
+}: React.ComponentPropsWithoutRef<'button'> & {
   asChild?: boolean
   isActive?: boolean
   tooltip?: string | React.ComponentProps<typeof TooltipContent>
@@ -552,7 +552,7 @@ function SidebarMenuAction({
   asChild = false,
   showOnHover = false,
   ...props
-}: React.ComponentProps<'button'> & {
+}: React.ComponentPropsWithoutRef<'button'> & {
   asChild?: boolean
   showOnHover?: boolean
 }) {
@@ -674,7 +674,7 @@ function SidebarMenuSubButton({
   isActive = false,
   className,
   ...props
-}: React.ComponentProps<'a'> & {
+}: React.ComponentPropsWithoutRef<'a'> & {
   asChild?: boolean
   size?: 'sm' | 'md'
   isActive?: boolean

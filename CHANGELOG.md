@@ -1,3 +1,21 @@
+## Unreleased
+
+### BREAKING CHANGE
+
+- migrate package manager from pnpm to bun (devbox-managed); add `bun.lock` and remove `pnpm-lock.yaml`
+
+### Fix
+
+- fix `asChild` component typing and `Button` ref support to satisfy TypeScript build
+- add missing `react-is` dependency required by `recharts` during Vite build
+
+### Others
+
+- add devbox environment (`bun@1.3.8`, `nodejs@20.19.0`) and ignore `.devbox/`
+- update CI workflow to use Bun and pin Node.js 20.19.0
+- update docs for devbox + bun workflow (README, CONTRIBUTING)
+- upgrade dependencies (TanStack Router, Vite, Clerk, etc.) and regenerate route tree
+
 ## v2.2.1 (2025-11-06)
 
 ### Fix

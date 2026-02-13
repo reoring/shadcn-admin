@@ -91,13 +91,14 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  pnpm install
+  devbox install
+  devbox run -- bun install
 ```
 
 Start the server
 
 ```bash
-  pnpm run dev
+  devbox run -- bun run dev
 ```
 
 ## Sponsoring this project ❤️
